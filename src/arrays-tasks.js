@@ -535,8 +535,14 @@ function getMaxItems(arr, n) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2) {
+  const array = new Set();
+  arr1.forEach((item) => {
+    if (arr2.includes(item)) {
+      array.add(item);
+    }
+  });
+  return [...array];
 }
 
 /**
@@ -550,8 +556,17 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  if (nums.length === 0) return 0;
+  let longestIncreasing = 0;
+  let previtem = nums[0];
+  nums.forEach((item) => {
+    if (item > previtem) {
+      previtem = item;
+      longestIncreasing += 1;
+    }
+  });
+  return longestIncreasing;
 }
 
 /**
@@ -568,8 +583,15 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  if (arr.length === 0) return [];
+  const newArr = [];
+  arr.forEach((item, index) => {
+    for (let i = 0; i <= index; i += 1) {
+      newArr.push(item);
+    }
+  });
+  return newArr;
 }
 
 /**
@@ -585,8 +607,20 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  const newArr = [];
+  if (n > 0) {
+    const part1 = arr.slice(-n);
+    const part2 = arr.slice(0, arr.length - n);
+    newArr.push(...part1);
+    newArr.push(...part2);
+  } else {
+    const part1 = arr.slice(Math.abs(-n));
+    const part2 = arr.slice(0, Math.abs(n));
+    newArr.push(...part1);
+    newArr.push(...part2);
+  }
+  return newArr;
 }
 
 /**
