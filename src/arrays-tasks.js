@@ -489,8 +489,18 @@ function getIndicesOfOddNumbers(numbers) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const result = arr.map((item) => {
+    const r = Math.floor(item / 65536);
+    const g = Math.floor((item % 65536) / 256);
+    const b = item % 256;
+
+    const hex = `#${r < 16 ? '0' : ''}${r.toString(16)}${
+      g < 16 ? '0' : ''
+    }${g.toString(16)}${b < 16 ? '0' : ''}${b.toString(16)}`.toUpperCase();
+    return hex;
+  });
+  return result;
 }
 
 /**
@@ -507,8 +517,10 @@ function getHexRGBValues(/* arr */) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  if (n <= 0) return [];
+  const sortedArr = arr.sort((a, b) => b - a);
+  return sortedArr.slice(0, n);
 }
 
 /**
