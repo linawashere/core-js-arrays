@@ -21,12 +21,7 @@
  *    getIntervalArray(3, 3) => [ 3 ]
  */
 function getIntervalArray(start, end) {
-  const range = {
-    from: start,
-    to: end,
-  };
-  const arr = Array.from(range);
-  return arr;
+  return Array.from({ length: end - start + 1 }, (v, i) => start + i);
 }
 
 /**
@@ -43,14 +38,14 @@ function getIntervalArray(start, end) {
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
 function sumArrays(arr1, arr2) {
-  const maxLength = arr1.length >= arr2.length ? arr1.length : arr2.length;
-  const sum = [];
-  for (let i = 0; i < maxLength; i += 1) {
-    const value1 = i < arr1.length ? arr1[i] : 0;
-    const value2 = i < arr2.length ? arr2[i] : 0;
-    sum.push(value1 + value2);
-  }
-  return sum;
+  return arr1
+    .map((num, i) => num + (arr2[i] || 0))
+    .concat(arr2.slice(arr1.length));
+  // for (let i = 0; i < maxLength; i += 1) {
+  //   const value1 = i < arr1.length ? arr1[i] : 0;
+  //   const value2 = i < arr2.length ? arr2[i] : 0;
+  //   sum.push(value1 + value2);
+  // }
 }
 
 /**
@@ -284,8 +279,15 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+function createNDimensionalArray(n, size) {
+  const newArr = [];
+  for (let i = 0; i < n; i += 1) {
+    newArr[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      newArr.push(0);
+    }
+  }
+  return newArr;
 }
 
 /**
@@ -494,7 +496,6 @@ function getHexRGBValues(arr) {
     const r = Math.floor(item / 65536);
     const g = Math.floor((item % 65536) / 256);
     const b = item % 256;
-
     const hex = `#${r < 16 ? '0' : ''}${r.toString(16)}${
       g < 16 ? '0' : ''
     }${g.toString(16)}${b < 16 ? '0' : ''}${b.toString(16)}`.toUpperCase();
