@@ -280,14 +280,16 @@ function distinct(arr) {
  *    createNDimensionalArray(1, 1) => [0]
  */
 function createNDimensionalArray(n, size) {
-  const newArr = [];
-  for (let i = 0; i < n; i += 1) {
-    newArr[i] = [];
-    for (let j = 0; j < size; j += 1) {
-      newArr.push(0);
-    }
+  if (n <= 0 || size <= 0) {
+    throw new Error('n and size must be greater than 0');
   }
-  return newArr;
+  const createArray = (depth) => {
+    if (depth === 0) {
+      return 0;
+    }
+    return Array.from({ length: size }, () => createArray(depth - 1));
+  };
+  return createArray(n);
 }
 
 /**
