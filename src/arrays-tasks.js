@@ -213,7 +213,7 @@ function getHead(arr, n) {
  *    getTail([ 'a', 'b', 'c', 'd'], 0) => []
  */
 function getTail(arr, n) {
-  if (n < 0) {
+  if (n <= 0) {
     return [];
   }
   return arr.slice(-Math.min(n, arr.length));
